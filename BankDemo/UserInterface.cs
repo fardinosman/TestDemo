@@ -38,7 +38,7 @@ namespace BankDemo
                     return false;
                 case '3':
                     Console.WriteLine("You have selected: Withdraw money");
-                 
+                        
                     return false;
                 case '4':
                     Console.WriteLine("You have selected: Deposit Money");
