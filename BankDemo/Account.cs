@@ -59,5 +59,10 @@ namespace BankDemo
             }
             return reportPart;
         }
+
+        internal void WithdrawMoney(double amount)
+        {
+            _accountEvent.Add(new AccountEvent(System.DateTime.Now.ToString("D"), amount));
+        }
     }
 }

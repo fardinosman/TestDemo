@@ -21,31 +21,31 @@ namespace BankDemo
             return false;
         }
 
-        internal static bool CreateNewAccount(int ssn, string type, double balance, string date)
+        internal static int CreateNewAccount(int ssn, string type, double balance, string date)
         {
 
             if (_allCustomers.ContainsKey(ssn))
             {
 
-                int newAccountNumber;
+                int newAccountNumber = -1;
 
                 bool ok = false;
                 do
                 {
                     System.Random rnd = new System.Random();
                     newAccountNumber = rnd.Next(100000, 999999);
-                    if (!_allAccount.ContainsKey(newAccountNumber))
+                    if (_allAccount.ContainsKey(newAccountNumber))
                     {
-                        ok = true; 
+                        newAccountNumber = -1;
                     }
-                } while (ok == false);
+                } while (newAccountNumber < 0);
                 Account newAccount = new Account(type, newAccountNumber, date, balance);
                 _allAccount.Add(newAccountNumber, newAccount);
 
                 _allCustomers[ssn].CreateAccount(newAccount);
-                return true;
+                return newAccountNumber;
             }
-            return false; 
+            return -1; 
         }
 
         internal static string PrintAccountSummery(int ssn)
@@ -56,6 +56,17 @@ namespace BankDemo
                return _allCustomers[ssn].CreateAccountSummery();
             }
             return "Error. Customer dosent Exists";
+        }
+
+        internal static bool WithdrawMoney(int accountNumber, double amount)
+        {
+            if (_allAccount.ContainsKey(accountNumber))
+            {
+
+                _allAccount[accountNumber].WithdrawMoney(amount);
+                return true;
+            }
+            return false;
         }
     }
 }

@@ -38,7 +38,7 @@ namespace BankDemo
                     return false;
                 case '3':
                     Console.WriteLine("You have selected: Withdraw money");
-                        
+                    WithdrawMoney();
                     return false;
                 case '4':
                     Console.WriteLine("You have selected: Deposit Money");
@@ -56,6 +56,39 @@ namespace BankDemo
         
             }
             return false;
+        }
+
+        private static void WithdrawMoney()
+        {
+
+            Console.WriteLine("Enter account number:  ");
+            int accountNumber;
+            try
+            {
+                accountNumber = int.Parse(Console.ReadLine());
+            }
+            catch (Exception e)
+            {
+
+                Console.WriteLine("An error occured: " + e.Message);
+                accountNumber = -1;
+            }
+
+            Console.WriteLine("Enter Amount:  ");
+            double Amount;
+            try
+            {
+                Amount = double.Parse(Console.ReadLine());
+            }
+            catch (Exception e)
+            {
+
+                Console.WriteLine("An error occured: " + e.Message);
+                Amount = -1;
+            }
+
+            BankSystem.WithdrawMoney(accountNumber, Amount);
+
         }
 
         private static void PrintAccountSummery()
@@ -114,7 +147,11 @@ namespace BankDemo
             string date = Console.ReadLine();
             if (type.Length >0 & ssn >0)
             {
-                bool succes = BankSystem.CreateNewAccount(ssn, type, balance, date);
+                int accountNumber = BankSystem.CreateNewAccount(ssn, type, balance, date);
+                if (accountNumber >0)
+                {
+                    //cw  
+                }
             }
             else
             {
